@@ -45,8 +45,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         numberOfWrongGuesses = 0
         inputGuess.isEnabled = true
         newGameButton.isHidden = true
-        
-        
+        hangmanImages.image = nil
+        inputGuess.isEnabled = false
+        dict = [:]
+        arrChar = []
         
     }
     
@@ -71,13 +73,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-   
-    
     
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         print(string)
-//        disableNums(gameWord, shouldChangeCharactersIn: charset, replacementString: nil)
+        let characterSet = CharacterSet.letters
+        if string.rangeOfCharacter(from: characterSet.inverted) != nil {
+            return false
+        }
+        
         if inputGuess == textField {
             if allLettersGuessed.text!.contains(string) {
             }else {
@@ -120,7 +124,4 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    
-    
 }
-
